@@ -21,7 +21,9 @@ sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/
 
 read -p "Do you want to change the root paths for your Plex Libraries Y/N:" answer </dev/tty
 
-while [[ ! -d "Y"]];
-do sudo sqlite3 "/pg/data/plex/database/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" "UPDATE media_parts SET file= replace(file, '/mnt/unionfs/', '/pg/unity/') where file like '%/mnt/unionfs/%'"
-done 
+if [[ $answer='Y' || $answer='y' ]];
+then sudo sqlite3 "/pg/data/plex/database/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" "UPDATE media_parts SET file= replace(file, '/mnt/unionfs/', '/pg/unity/') where file like '%/mnt/unionfs/%'"
+elif [[ $answer='N' || $answer='n' ]]
+then exit 
+fi
 
