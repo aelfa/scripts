@@ -26,9 +26,9 @@ done
 
 sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/pg/unity/$folder_path/' WHERE Path = '/mnt/unionfs/$folder_path/'"
 
-#################################################
+#####################################################
 # Change Plex Library Paths
-#################################################
+#####################################################
 
 read -p "Do you want to change the root paths for your Plex Libraries Y/N:" answer </dev/tty
 
