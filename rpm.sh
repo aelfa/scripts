@@ -3,16 +3,12 @@
 # script by ALPHA
 #####################################################
 
-#####################################################
-
-
-:'STOP DOCKER CONTAINERS'
+#docker: STOP-CONTAINERS
 
 sudo docker stop $(docker ps -a -q)
 
-#####################################################
-# Changed *arr Database Paths
-#####################################################
+
+# root_paths: *ARR
 
 paths() { read -p "
 Type old location for example if your movies were at /mnt/unionfs/movies just type movies:"  folder_path </dev/tty && read -p " type radarr or sonarr: " arr_name </dev/tty
@@ -26,9 +22,7 @@ done
 
 sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/pg/unity/$folder_path/' WHERE Path = '/mnt/unionfs/$folder_path/'"
 
-#####################################################
-# Change Plex Library Paths
-#####################################################
+# root_paths: PLEX
 
 read -p "Do you want to change the root paths for your Plex Libraries Y/N:" answer </dev/tty
 
@@ -37,6 +31,6 @@ then sudo sqlite3 "/pg/data/plex/database/Library/Application Support/Plex Media
 else echo "Library Paths Unchanged"
 fi
 
-:'START DOCKER CONTAINERS'
+#docker: START-CONTAINERS
 sudo docker start $(docker ps -a -q)
 
