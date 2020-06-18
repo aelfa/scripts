@@ -9,8 +9,8 @@ sudo docker stop $(docker ps -a -q)
 
 #ROOT PATH *ARR
 
-    paths() { read -p "
-Type old location for example if your movies were at /mnt/unionfs/movies just type movies: "  folder_path </dev/tty &&     read -p " type radarr or sonarr: " arr_name </dev/tty
+    paths() { read -ep "
+Type old location for example if your movies were at /mnt/unionfs/movies just type movies: "  folder_path && read -ep " type radarr or sonarr: " arr_name
 }
 
 paths
@@ -26,7 +26,7 @@ done
 sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/pg/unity/$folder_path/' WHERE Path = '/mnt/unionfs/$folder_path/'"
 
 #ROOT PATH PLEX
-read -ep 'Do you want to change Plex Library Paths | [Y/N]: '  typed </dev/tty
+read -ep 'Do you want to change Plex Library Paths | [Y/N]: '  typed 
 
 if [ "${typed}" == "y" ] || [ "${typed}" == "Y" ] || [ "${typed}" == "yes" ] || [ "${typed}" == "Yes" ] || [ "${typed}" == "YES" ]; then
     CHANGEROOT=true
