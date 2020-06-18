@@ -6,11 +6,10 @@
 #PLEX__APPDATA_PATH
 PLEX_APPDATA_PATH [] {
 
-    echo "The Path where Plex appdata is stored" 
-    echo "EXAMPLE: /opt/appdata OR" 
-    echo "/pg/data"
-    echo "NOTE: Don't include the trailing /"
-    echo "EXAMPLE: /opt/appdata NOT /opt/appdata"
+    echo
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo " ⚠️ Folder $folder_path does not Exist! FOR PLEX "             
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 read -p "Enter Plex Appdata Path:"  plex_appdata </dev/tty
 }
 
@@ -38,7 +37,7 @@ done
 sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/pg/unity/$folder_path/' WHERE Path = '/mnt/unionfs/$folder_path/'"
 
 #ROOT PATH PLEX
-read -p 'Do you want to change Plex Library Paths | [Y/N]: '  typed </dev/tty
+read -ep 'Do you want to change Plex Library Paths | [Y/N]: '  typed </dev/tty
 
 if [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     CHANGEROOT=true
@@ -47,22 +46,16 @@ else
 fi
 
 if [ ${CHANGEROOT} ]; then
-  PLEX__APPDATA_PATH;
-while 
-[[ ! -d "$plex_appdata/plex/database/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" ]]; do  
-echo "Plex appdata is not stored under $plex_appdata/ !" && PLEX_APPDATA__PATH 
-    sudo sqlite3 "$plex_appdata/plex/database/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" "UPDATE media_parts SET file= replace(file, '/mnt/unionfs/', '/pg/unity/') where file like '%/mnt/unionfs/%'" && echo
+sudo sqlite3 "$(cat "sudo docker inspect plex | grep config:rw | sed 's/\"//g' | tr -d ' ' | sed 's/\:.*//g'")/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" "UPDATE media_parts SET file= replace(file, '/mnt/unionfs/', '/pg/unity/') where file like '%/mnt/unionfs/%'" && echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ✅ Library Paths Changed "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; 
-done
 else 
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ Library Paths Unchanged "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
 fi
-
 
 #DOCKER START CONTAINERS
 sudo docker start $(docker ps -a -q)
