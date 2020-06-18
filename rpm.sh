@@ -5,9 +5,8 @@
 
 #####################################################
 
-#####################################################
-# Stop all docker containers
-#####################################################
+
+:'STOP DOCKER CONTAINERS'
 
 sudo docker stop $(docker ps -a -q)
 
@@ -37,8 +36,7 @@ if [[ $answer='Y' || $answer='y' ]];
 then sudo sqlite3 "/pg/data/plex/database/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" "UPDATE media_parts SET file= replace(file, '/mnt/unionfs/', '/pg/unity/') where file like '%/mnt/unionfs/%'"
 else echo "Library Paths Unchanged"
 fi
-##################################################
-# Start docker containers
-##################################################
+
+:'START DOCKER CONTAINERS'
 sudo docker start $(docker ps -a -q)
 
