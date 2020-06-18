@@ -6,13 +6,12 @@
 #PLEX__APPDATA_PATH
 PLEX_APPDATA_PATH [] {
 
-    echo "The Path where Plex appdata is stored 
-EXAMPLE: /opt/appdata OR 
-        /pg/data
-NOTE: Don't include the trailing /
-EXAMPLE: /opt/appdata NOT /opt/appdata"
-
-    read -p "Enter Plex Appdata Path:"  plex_appdata </dev/tty
+    echo "The Path where Plex appdata is stored" 
+    echo "EXAMPLE: /opt/appdata OR" 
+    echo "/pg/data"
+    echo "NOTE: Don't include the trailing /"
+    echo "EXAMPLE: /opt/appdata NOT /opt/appdata"
+read -p "Enter Plex Appdata Path:"  plex_appdata </dev/tty
 
 }
 
@@ -40,12 +39,27 @@ done
 sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/pg/unity/$folder_path/' WHERE Path = '/mnt/unionfs/$folder_path/'"
 
 #ROOT PATH PLEX
-    read -p 'Do you want to change Plex Library Paths | [Y/N]: '  typed </dev/tty
+read -p 'Do you want to change Plex Library Paths | [Y/N]: '  typed </dev/tty
+
+#CASE
+case ${answer} in
+
+    y|Y|yes|Yes|YES)
+        CHANGEROOT=true
+        ;;
+    n|N|no|No|NO)
+        CHANGEROOT=false
+        ;;
+    *)
+        CHANGEROOT=false # default
+        ;;
+
+esac
 
 
 
 if [[ "$typed" == "Y" || "$typed" == "y" || "$typed" == "Yes" || "$typed" == "yes" ]]; then 
-PLEX__APPDATA_PATH; 
+PLEX__APPDATA_PATH;
 
 while 
 [[ ! -d "$plex_appdata/plex/database/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" ]]; do  
