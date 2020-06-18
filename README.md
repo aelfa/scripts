@@ -1,2 +1,2 @@
 # Plexguide-Scripts
-# Making scripts Noob-Friendly
+# Making the use of scripts Noob-Friendly 
