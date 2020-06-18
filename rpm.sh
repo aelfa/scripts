@@ -3,17 +3,6 @@
 # script by ALPHA
 #####################################################
 
-#PLEX__APPDATA_PATH
-PLEX_APPDATA_PATH [] {
-
-    echo
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo " ⚠️ Folder $folder_path does not Exist! FOR PLEX "             
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-read -p "Enter Plex Appdata Path:"  plex_appdata </dev/tty
-}
-
-
 #STOP ALL DOCKER CONTAINERS
 sudo docker stop $(docker ps -a -q)
 
