@@ -26,9 +26,9 @@ done
 sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/pg/unity/$folder_path/' WHERE Path = '/mnt/unionfs/$folder_path/'"
 
 #ROOT PATH PLEX
-read -ep 'Do you want to change Plex Library Paths | [Y/N]: '  typed 
+read -ep 'Do you want to change Plex Library Paths | [Y/N]: '  answer
 
-if [ "${typed}" == "y" ] || [ "${typed}" == "Y" ] || [ "${typed}" == "yes" ] || [ "${typed}" == "Yes" ] || [ "${typed}" == "YES" ]; then
+if [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     CHANGEROOT=true
 else
     CHANGEROOT=false
