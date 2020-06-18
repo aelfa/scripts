@@ -12,7 +12,6 @@ PLEX_APPDATA_PATH [] {
     echo "NOTE: Don't include the trailing /"
     echo "EXAMPLE: /opt/appdata NOT /opt/appdata"
 read -p "Enter Plex Appdata Path:"  plex_appdata </dev/tty
-
 }
 
 
@@ -58,9 +57,14 @@ esac
 
 
 
-if [[ "$typed" == "Y" || "$typed" == "y" || "$typed" == "Yes" || "$typed" == "yes" ]]; then 
-PLEX__APPDATA_PATH;
+if [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
+    CHANGEROOT=true
+else
+    CHANGEROOT=false
+fi
 
+if [ ${CHANGEROOT} ]; then
+  PLEX__APPDATA_PATH;
 while 
 [[ ! -d "$plex_appdata/plex/database/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db" ]]; do  
 echo "Plex appdata is not stored under $plex_appdata/ !" && PLEX_APPDATA__PATH 
