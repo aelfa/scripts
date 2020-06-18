@@ -40,23 +40,6 @@ sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/
 #ROOT PATH PLEX
 read -p 'Do you want to change Plex Library Paths | [Y/N]: '  typed </dev/tty
 
-#CASE
-case ${typed} in
-
-    y|Y|yes|Yes|YES)
-        CHANGEROOT=true
-        ;;
-    n|N|no|No|NO)
-        CHANGEROOT=false
-        ;;
-    *)
-        CHANGEROOT=false # default
-        ;;
-
-esac
-
-
-
 if [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     CHANGEROOT=true
 else
