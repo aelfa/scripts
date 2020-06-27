@@ -1,7 +1,4 @@
 #!/bin/bash
-#####################################################
-# script by ALPHA
-#####################################################
 
 sudo docker inspect plex | grep config:rw | sed 's/\"//g' | tr -d ' ' | sed 's/\:.*//g' 2>&1 | tee /tmp/plex.info
 PLEX_ROOT="$(cat /tmp/plex.info)"

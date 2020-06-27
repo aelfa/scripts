@@ -1,11 +1,7 @@
 #!/bin/bash
-#####################################################
-# script by ALPHA
-#####################################################
 
 #STOP ALL DOCKER CONTAINERS
 sudo docker stop $(docker ps -a -q)
-
 
 #ROOT PATH *ARR
 
