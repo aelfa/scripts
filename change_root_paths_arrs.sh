@@ -22,7 +22,7 @@ ARR_PATHS () {
     read -ep 'ARR NAME | [EXAMPLE:sonarr or radarr]: ' ARR_NAME
     read -ep 'APPDATA LOCATION | [EXAMPLE:/pg/data or /opt/appdata]: ' APPDATA_LOCATION
 if [[ ! -d "${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/" ]]; then  
-    echo " ⚠️ ${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/ is not a valid mergerfs path " && ARR_PATHS;
+    echo " ⚠️ ${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/ is not a valid path " && ARR_PATHS;
 fi
 }
 
