@@ -5,7 +5,6 @@ MERGERFS_PATH () {
     read -ep 'NEW MERGERFS DIRECTORY | [EXAMPLE:/pg/unity/]: ' NEW_MERGERFS_LOCATION
 if [[ ! -d "${NEW_MERGERFS_LOCATION}" ]]; then
     echo
-    
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ ${NEW_MERGERFS_LOCATION} is not a valid mergerfs path "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || [ MERGERFS_PATH ];
