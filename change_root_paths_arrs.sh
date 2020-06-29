@@ -1,10 +1,8 @@
 #!/bin/bash
     
-    echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " STOPPING ALL DOCKER CONTAINERS "
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker stop $(docker ps -a -q)
-    echo 
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker stop $(docker ps -a -q) 
 
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ Strictly follow the EXAMPLE format while typing your paths "
@@ -34,14 +32,19 @@ if
     [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     MERGERFS_PATH
     ARR_PATH
-sudo sqlite3 "${APPDATA_LOCATION}/${ARR_NAME}/${ARR_NAME}.db" "UPDATE RootFolders SET Path = '${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/' WHERE Path = '${OLD_MERGERFS_LOCATION}/${MEDIA_LOCATION}/'"
-
-#DOCKER START CONTAINERS
+sudo sqlite3 "${APPDATA_LOCATION}/${ARR_NAME}/${ARR_NAME}.db" "UPDATE RootFolders SET Path = '${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/' WHERE Path = '${OLD_MERGERFS_LOCATION}/${MEDIA_LOCATION}/'"&&
     echo
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo " ✅ Database Paths Changed "
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || echo " ⚠️ Failed to change Database paths."; else 
+    echo
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo " ⚠️ No Changes Made "
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+fi
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " STARTING ALL DOCKER CONTAINERS "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker start $(docker ps -a -q)
-    echo 
 
 
 
