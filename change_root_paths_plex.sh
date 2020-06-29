@@ -3,11 +3,8 @@
 MERGERFS_PATH () {
     read -ep 'OLD MERGERFS DIRECTORY | [EXAMPLE:/mnt/unionfs/]: ' OLD_MERGERFS_LOCATION
     read -ep 'NEW MERGERFS DIRECTORY | [EXAMPLE:/pg/unity/]: ' NEW_MERGERFS_LOCATION
-if [[ ! -d "${NEW_MERGERFS_LOCATION}" ]]; then
-    [[ echo
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo " ⚠️ ${NEW_MERGERFS_LOCATION} is not a valid mergerfs path "
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || MERGERFS_PATH ]] ;
+if [[ ! -d "${NEW_MERGERFS_LOCATION}" ]]; then  
+   echo " ⚠️ ${NEW_MERGERFS_LOCATION} is not a valid mergerfs path " && MERGERFS_PATH;
 fi
 }
 
@@ -25,11 +22,11 @@ if
     PLEX_PATHS
     sudo docker stop plex
     MERGERFS_PATH
-    [[ sudo sqlite3 "${PLEX_DATABASE}" "UPDATE media_parts SET file= replace(file, '${OLD_MERGERFS_LOCATION}', '${NEW_MERGERFS_LOCATION}') where file like '%${OLD_MERGERFS_LOCATION}%'" &&
+    sudo sqlite3 "${PLEX_DATABASE}" "UPDATE media_parts SET file= replace(file, '${OLD_MERGERFS_LOCATION}', '${NEW_MERGERFS_LOCATION}') where file like '%${OLD_MERGERFS_LOCATION}%'" &&
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ✅ Library Paths Changed "
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || echo " ⚠️ Failed to change Plex Library paths." ]]; else
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || echo " ⚠️ Failed to change Plex Library paths."; else 
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ Library Paths Unchanged "
