@@ -7,7 +7,7 @@ MERGERFS_PATH () {
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ ${NEW_MERGERFS_LOCATION} is not a valid mergerfs path "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || [ MERGERFS_PATH ];
-done
+fi
 }
 
 PLEX_PATHS () {
