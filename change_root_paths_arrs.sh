@@ -27,7 +27,7 @@ fi
 }
 
 
-read -ep 'Do you want to change root paths for your Arrs | [Y/N]: '
+read -ep 'Do you want to change root paths for your Arrs | [Y/N]: ' answer
 if 
     [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     MERGERFS_PATH
