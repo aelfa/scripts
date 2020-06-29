@@ -1,4 +1,9 @@
 #!/bin/bash
+# This script will change the root paths for your Plex Libaries
+
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo " /mnt/unionfs/=✅ | /mnt/unionfs=❌ "
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 MERGERFS_PATH () {
     read -ep 'OLD MERGERFS DIRECTORY | [EXAMPLE:/mnt/unionfs/]: ' OLD_MERGERFS_LOCATION
