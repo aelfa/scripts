@@ -32,7 +32,7 @@ if
     [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     MERGERFS_PATH
     ARR_PATHS
-sudo sqlite3 "${APPDATA_LOCATION}/${ARR_NAME}/${ARR_NAME}.db" "UPDATE RootFolders SET Path = '${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/' WHERE Path = '${OLD_MERGERFS_LOCATION}/${MEDIA_LOCATION}/'"&&
+sudo sqlite3 "${APPDATA_LOCATION}/${ARR_NAME}/${ARR_NAME}.db" "UPDATE RootFolders SET Path = '${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/' WHERE Path = '${OLD_MERGERFS_LOCATION}/${MEDIA_LOCATION}/'" &&
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ✅ Database Paths Changed "
