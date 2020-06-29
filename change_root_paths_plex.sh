@@ -2,7 +2,7 @@
 # This script will change the root paths for your Plex Libaries
 
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo " ⚠️ /mnt/unionfs/=Correct | /mnt/unionfs=Wrong "
+    echo " ⚠️ Strictly follow the EXAMPLE format while typing your paths "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 MERGERFS_PATH () {
