@@ -1,26 +1,47 @@
 #!/bin/bash
+    
+    echo
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo " STOPPING ALL DOCKER CONTAINERS "
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker stop $(docker ps -a -q)
+    echo 
 
-#STOP ALL DOCKER CONTAINERS
-sudo docker stop $(docker ps -a -q)
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo " ⚠️ Strictly follow the EXAMPLE format while typing your paths "
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-#ROOT PATH *ARR
-
-    ARR_PATHS () { read -ep "
-Type old location for example if your movies were at /mnt/unionfs/movies just type movies: "  folder_path && read -ep " type radarr or sonarr: " arr_name
+MERGERFS_PATH () {
+    read -ep 'OLD MERGERFS DIRECTORY | [EXAMPLE:/mnt/unionfs]: ' OLD_MERGERFS_LOCATION
+    read -ep 'NEW MERGERFS DIRECTORY | [EXAMPLE:/pg/unity]: ' NEW_MERGERFS_LOCATION
+if [[ ! -d "${NEW_MERGERFS_LOCATION}" ]]; then  
+    echo " ⚠️ ${NEW_MERGERFS_LOCATION} is not a valid mergerfs path " && MERGERFS_PATH;
+fi
 }
 
-ARR_PATHS
 
-while [[ ! -d "/pg/unity/$folder_path" ]]; do
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo " ⚠️ Folder $folder_path does not Exist! "
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && ARR_PATHS;
-done
+ARR_PATHS () { 
+    read -ep 'MEDIA FOLDER NAME | [EXAMPLE:movies or tv]: '  MEDIA_LOCATION 
+    read -ep 'ARR NAME | [EXAMPLE:sonarr or radarr]: ' ARR_NAME
+    read -ep 'APPDATA LOCATION | [EXAMPLE:/pg/data or /opt/appdata]: ' APPDATA_LOCATION
+if [[ ! -d "${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/" ]]; then  
+    echo " ⚠️ ${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/ is not a valid mergerfs path " && ARR_PATHS;
+fi
+}
 
 
-sudo sqlite3 "/pg/data/$arr_name/$arr_name.db" "UPDATE RootFolders SET Path = '/pg/unity/$folder_path/' WHERE Path = '/mnt/unionfs/$folder_path/'"
+read -ep 'Do you want to change root paths for your Arrs | [Y/N]: '
+if 
+    [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
+    MERGERFS_PATH
+    ARR_PATH
+sudo sqlite3 "${APPDATA_LOCATION}/${ARR_NAME}/${ARR_NAME}.db" "UPDATE RootFolders SET Path = '${NEW_MERGERFS_LOCATION}/${MEDIA_LOCATION}/' WHERE Path = '${OLD_MERGERFS_LOCATION}/${MEDIA_LOCATION}/'"
 
 #DOCKER START CONTAINERS
-sudo docker start $(docker ps -a -q)
+    echo
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    echo " STARTING ALL DOCKER CONTAINERS "
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker start $(docker ps -a -q)
+    echo 
+
 
 
