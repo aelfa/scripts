@@ -20,7 +20,7 @@ read -ep 'Do you want to change Plex Library Paths | [Y/N]: '  answer
 if 
     [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     PLEX_PATHS
-    sudo docker stop plex
+    echo "STOPPING PLEX DOCKER" && sudo docker stop plex 
     MERGERFS_PATH
     sudo sqlite3 "${PLEX_DATABASE}" "UPDATE media_parts SET file= replace(file, '${OLD_MERGERFS_LOCATION}', '${NEW_MERGERFS_LOCATION}') where file like '%${OLD_MERGERFS_LOCATION}%'" &&
     echo
@@ -32,4 +32,4 @@ if
     echo " ⚠️ Library Paths Unchanged "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
 fi
-sudo docker start plex
+echo "STARTING PLEX DOCKER" && sudo docker start plex
