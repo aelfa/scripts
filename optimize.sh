@@ -17,3 +17,4 @@ PLEX_PREFERENCES="${PLEX_ROOT}/Library/Application Support/Plex Media Server/Pre
 
 PLEX_PATHS
 OPTIMIZE_PLEX
+rm -f /tmp/plex.info
