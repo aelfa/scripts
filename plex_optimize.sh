@@ -2,7 +2,7 @@
 # Get the contents of the Preferences file, keep only what we need,  push to a temp, then use it in the curl command
 
 OPTIMIZE_PLEX () {
-"${PLEX_PREFERENCES}" |  \
+sudo "${PLEX_PREFERENCES}" |  \
 sed -e 's;^.* PlexOnlineToken=";;' | sed -e 's;".*$;;' | tail -1 > /tmp/plex.tmp
 
 curl --request PUT http://127.0.0.1:32400/library/optimize\?async=1\&X-Plex-Token=`cat /tmp/plex.tmp`
