@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "HI"
+
 read -ep 'Would you like to remove all unused containers, networks, volumes, images and build cache? | [Y/N]: '  answer
 
 if 
