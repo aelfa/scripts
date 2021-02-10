@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 ##!Maintainer: Aelfa
-### Adjusted and Made Public with love for @Hawks
+###!Adjusted and Made Public with love for @Hawks
+####!Original Maintainer nemchik
 set -euo pipefail
 IFS=$'\n\t'
 
