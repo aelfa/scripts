@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+# Copyright (c) 2020, MrDoob
+# All rights reserved
 
 function badinput() {
   echo
@@ -49,17 +52,11 @@ tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  mergerfs Update Panel  --local version $mgstored
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 mergerfs installed version = 		$mgstored
-
 mergerfs latest version    = 		$mgversion
-
 [Y] UPDATE to lateste version
-
 [Z] Exit
-
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 EOF
 
   read -p '↘️  Type .... and press [ENTER]: ' typed </dev/tty
@@ -82,16 +79,11 @@ rcstored="$(rclone --version | awk '{print $2}' | tail -n 3 | head -n 1)"
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  rClone Update Panel  			$rcstored
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 rclone installed version = 		$rcstored
-
 rclone latest version 	 = 		$rcversion
-
 Update to STABLE = [ S / s ]
 Update to BETA   = [ B / b ]
-
 [ Z / z ] = Exit
-
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
 
@@ -117,13 +109,9 @@ tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   >>> ---- Update INTERFACE ---- <<<<
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-
  rclone update panel     = [ R / r ]
  mergerfs update panel   = [ M / m ]
-
  EXIT the interface      = [ Z / z ]
-
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
   read -p '↘️  Type .... and  press [ENTER]: ' typed </dev/tty
