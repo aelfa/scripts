@@ -50,7 +50,7 @@ function main () {
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
 read -ep 'Select option and press [ENTER]: ' answer
-if [[ ${answer} == "exit" || $section == "Exit" || $section == "EXIT" || $section  == "z" || $section == "Z" ]];then exit;fi
+if [[ ${answer} == "exit" || ${answer} == "Exit" || ${answer} == "EXIT" || ${answer}  == "z" || ${answer} == "Z" ]];then exit;fi
 if 
     [ "${answer}" == "1" ]; then
 sudocheck
