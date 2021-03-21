@@ -51,13 +51,7 @@ function main () {
 EOF
 read -ep 'Select option and press [ENTER]: ' answer
 if [[ ${answer} == "exit" || ${answer} == "Exit" || ${answer} == "EXIT" || ${answer}  == "z" || ${answer} == "Z" ]];then exit;fi
-if 
-    [ "${answer}" == "1" ]; then
-sudocheck
-clonetraefik
-elif [[ "${answer}" == "2" ]]; then 
-sudocheck
-cloneapps
-fi
+if [[ "${answer}" == "1" ]];then sudocheck && clonetraefik;fi
+elif [[ "${answer}" == "2" ]];then sudocheck && cloneapps;fi
 }
 main
