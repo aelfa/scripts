@@ -1,5 +1,5 @@
 #!/bin/bash
-function sudocheck () {
+sudocheck() {
   if [[ $EUID -ne 0 ]]; then
     tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -8,37 +8,37 @@ function sudocheck () {
 EOF
     exit 0
   fi
+if [[ ! -x $(command -v git) ]];then $(command -v apt) install git -yqq 1>/dev/null 2>&1;fi
 }
-function clonetraefik () {
+clonetraefik() {
   if [[ ! -d "/opt/traefik" ]]; then
-    sudo apt install git -yy
-    sudo git clone --quiet https://github.com/doob187/Traefikv2 /opt/traefik
-    sudo chown -cR 1000:1000 /opt/traefik/ 1>/dev/null 2>&1
-    sudo chmod -cR 755 /opt/traefik >> /dev/null 1>/dev/null 2>&1
-    sudo bash /opt/traefik/install.sh
+    sudo $(command -v git) clone --quiet https://github.com/doob187/Traefikv2 /opt/traefik
+    sudo $(command -v chown) -cR 1000:1000 /opt/traefik/ 1>/dev/null 2>&1
+    sudo $(command -v chmod) -cR 755 /opt/traefik 1>/dev/null 2>&1
+    sudo $(command -v bash) /opt/traefik/install.sh
   else
-    git -C "/opt/traefik" pull
-    git -C "/opt/traefik" fetch --all --prune
-    git -C "/opt/traefik" reset --hard origin/master
-    git -C "/opt/traefik" pull
-    sudo bash /opt/traefik/install.sh
+    $(command -v git) -C "/opt/traefik" pull
+    $(command -v git) -C "/opt/traefik" fetch --all --prune
+    $(command -v git) -C "/opt/traefik" reset --hard origin/master
+    $(command -v git) -C "/opt/traefik" pull
+    sudo $(command -v bash) /opt/traefik/install.sh
   fi
 }
-function cloneapps () {
+cloneapps() {
   if [[ ! -d "/opt/apps" ]]; then
-    sudo git clone --quiet https://github.com/doob187/traefikv2apps /opt/apps
-    sudo chown -cR 1000:1000 /opt/apps/ 1>/dev/null 2>&1
-    sudo chmod -cR 755 /opt/apps >> /dev/null 1>/dev/null 2>&1
-    sudo bash /opt/apps/install.sh
+    sudo $(command -v git) clone --quiet https://github.com/doob187/traefikv2apps /opt/apps
+    sudo $(command -v chown) -cR 1000:1000 /opt/apps/ 1>/dev/null 2>&1
+    sudo $(command -v chmod) -cR 755 /opt/apps 1>/dev/null 2>&1
+    sudo $(command -v bash) /opt/apps/install.sh
   else
-    git -C "/opt/apps" pull
-    git -C "/opt/apps" fetch --all --prune
-    git -C "/opt/apps" reset --hard origin/master
-    git -C "/opt/apps" pull
-    sudo bash /opt/apps/install.sh
+    $(command -v git) -C "/opt/apps" pull
+    $(command -v git) -C "/opt/apps" fetch --all --prune
+    $(command -v git) -C "/opt/apps" reset --hard origin/master
+    $(command -v git) -C "/opt/apps" pull
+    sudo $(command -v bash) /opt/apps/install.sh
   fi
 }
-function main () {
+main () {
   tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
                       🚀 Install doob187
@@ -46,11 +46,15 @@ function main () {
 [1] Deploy Traefik + Authelia
 [2] Install Apps
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   [ EXIT ] - Exit
+[ EXIT ] - Exit
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
-read -ep 'Select option and press [ENTER]: ' answer
+
+read -ep "Select option and press [ENTER]: " answer
+
 if [[ ${answer} == "exit" || ${answer} == "Exit" || ${answer} == "EXIT" || ${answer}  == "z" || ${answer} == "Z" ]];then exit;fi
-if [[ "${answer}" == "1" ]];then sudocheck && clonetraefik;elif [[ "${answer}" == "2" ]];then sudocheck && cloneapps;fi
+if [[ ${answer} == "" ]]; then sudocheck && main;fi
+if [[ ${answer} == "1" ]];then sudocheck && clonetraefik && main;fi
+if [[ ${answer} == "2" ]];then sudocheck && cloneapps && main;fi
 }
 main
