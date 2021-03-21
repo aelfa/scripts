@@ -22,7 +22,7 @@ function cloneapps () {
     sudo chmod -cR 755 /opt/apps >> /dev/null 1>/dev/null 2>&1
     sudo bash /opt/apps/install.sh
 }
- function main () {
+function main () {
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ Saying no to this option will only clone & install Traefikv2 with Authelia "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
