@@ -2,11 +2,6 @@
 # Copyright (c) 2020, Aelfa
 # All rights reserved.
 # Useful script to clone & update git repos
-REPO_PREFIX="https://github.com/"
-REPO_BASE=/opt/data/repos # Edit this to change the base of your repos
-echo " ⚠️ The script assumes the repos are located in a base location "
-read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
-REPO_NAME=${GIT_REPO}
 clone () {
     read -rp 'Author of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:aelfa]: ' GIT_USER
     REPO_AUTHOR=${GIT_USER}
@@ -25,8 +20,11 @@ permissions() {
     sudo "$(command -v chmod)" -cR 775 "${REPO_PATH}" 1>/dev/null 2>&1
 }
 main () {
-    GITHUB_REPO=${GIT_REPO}
-    
+    REPO_PREFIX="https://github.com"
+    REPO_BASE=/opt/data/repos # Edit this to change the base of your repos
+    echo " ⚠️ The script assumes the repos are located in a base location "
+    read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
+    REPO_NAME=${GIT_REPO}
     REPO_PATH=${REPO_BASE}/${REPO_NAME}
     if [[ ! -d "${REPO_BASE}/${REPO_NAME}/.git" ]]; then 
     clone && permissions
