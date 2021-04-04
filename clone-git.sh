@@ -22,7 +22,7 @@ update() {
 }
 permissions() {
     sudo "$(command -v chown)" -cR 1000:1000 "${REPO_PATH}" 1>/dev/null 2>&1
-    sudo "$(command -v chmod)" -cR 755 "${REPO_PATH}" 1>/dev/null 2>&1
+    sudo "$(command -v chmod)" -cR 775 "${REPO_PATH}" 1>/dev/null 2>&1
 }
 main () {
     GITHUB_REPO=${GIT_REPO}
