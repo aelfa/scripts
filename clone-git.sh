@@ -23,10 +23,10 @@ main () {
     GITHUB_REPO=${GIT_REPO}
     read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
     REPO_PATH=${REPO_BASE/GITHUB_REPO}
-    if [[ ! -d "${REPO_BASE}/${GITHUB_REPO}.git" ]]; then
+    if [[ ! -d "${$REPO_BASE/$GITHUB_REPO}.git" ]]; then
     GITHUB_USER=${GIT_USER}
     read -rp 'Author of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:aelfa]: ' GIT_USER 
-    REPO_LINK=${${GITHUB_PREFIX}/${GITHUB_USER}/${GITHUB_REPO}}.git
+    REPO_LINK=${$GITHUB_PREFIX/$GITHUB_USER/$GITHUB_REPO}.git
     clone && permissions
     else
     update && permissions
