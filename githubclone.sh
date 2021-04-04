@@ -7,8 +7,8 @@
     REPO_PREFIX="https://github.com"
     REPO_BASE=/opt/git # Edit this to change the base of your repos
     echo " ⚠️ The script assumes the repos are located in a base location "
-    read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
     read -rp 'Author of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:aelfa]: ' GIT_USER
+    read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
     REPO_NAME=${GIT_REPO}
     REPO_AUTHOR=${GIT_USER}
     REPO_PATH=${REPO_BASE}/${REPO_AUTHOR}/${REPO_NAME}
