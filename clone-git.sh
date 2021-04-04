@@ -2,11 +2,15 @@
 # Copyright (c) 2020, Aelfa
 # All rights reserved.
 # Useful script to clone & update git repos
-echo " ⚠️ This script assumes you have a base path set for your repos | [DEFAULT:/opt/data/repos] "
-GITHUB_PREFIX=https://github.com
+REPO_PREFIX="https://github.com/"
 REPO_BASE=/opt/data/repos # Edit this to change the base of your repos
+read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
+REPO_NAME=${GIT_REPO}
 clone () {
-    sudo "$(command -v git)" clone --quiet "${REPO_LINK}" "${REPO_BASE}"
+    read -rp 'Author of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:aelfa]: ' GIT_USER
+    REPO_AUTHOR=${GIT_USER}
+    REPO_LINK=${REPO_PREFIX}/${REPO_AUTHOR}/${REPO_NAME}.git
+    sudo "$(command -v git)" clone --quiet "${REPO_LINK}" "${REPO_BASE}/${REPO_NAME}"
 }
 
 update() {
@@ -21,12 +25,9 @@ permissions() {
 }
 main () {
     GITHUB_REPO=${GIT_REPO}
-    read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
-    REPO_PATH=${REPO_BASE/GITHUB_REPO}
-    if [[ ! -d "$REPO_BASE/$GITHUB_REPO.git" ]]; then
-    GITHUB_USER=${GIT_USER}
-    read -rp 'Author of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:aelfa]: ' GIT_USER 
-    REPO_LINK=${$GITHUB_PREFIX/$GITHUB_USER/$GITHUB_REPO}.git
+    
+    REPO_PATH=${REPO_BASE}/${REPO_NAME}
+    if [[ ! -d "${REPO_BASE}/${REPO_NAME}/.git" ]]; then 
     clone && permissions
     else
     update && permissions
