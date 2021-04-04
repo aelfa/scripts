@@ -4,7 +4,7 @@
 # Useful script to update already cloned git repos
 
 paths() {
-    read  -r -ep 'ENTER repo location | [EXAMPLE:/opt/scripts/test]: ' repo_path
+    read  -ep 'ENTER repo location | [EXAMPLE:/opt/scripts/test]: ' repo_path
     if [[ ! -f "${repo_path}/.git" ]]; then
     echo " ⚠️ ${repo_path} is not a git repo location " && paths;
     fi
