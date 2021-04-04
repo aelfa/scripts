@@ -6,7 +6,7 @@
 path() {
     read -r -ep 'ENTER repo location | [EXAMPLE:/opt/scripts/test]: ' repo_path
     if [[ ! -d "${repo_path}/.git" ]]; then
-    echo " ⚠️ ${repo_path} is not a git repo location " && path;
+    echo " ⚠️ ${repo_path} IS NOT A GIT REPO " && path;
     fi
 }
 
