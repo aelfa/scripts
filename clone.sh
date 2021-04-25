@@ -4,6 +4,7 @@
 # Useful script to clone & update git repos
 
 # INFORMATION
+    if [[ ! -x $(command -v git) ]];then sudo $(command -v apt) install git -yqq;fi
     REPO_PREFIX="https://github.com"
     REPO_BASE=/opt/data # Edit this to change the base of your repos
     echo " ⚠️ The script assumes the repos are located in a base location "
