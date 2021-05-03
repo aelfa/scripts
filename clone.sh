@@ -6,10 +6,10 @@
 # INFORMATION
     if [[ ! -x $(command -v git) ]];then sudo $(command -v apt) install git -yqq;fi
     REPO_PREFIX="https://github.com"
-    REPO_BASE=/opt/data # Edit this to change the base of your repos
-    echo " ⚠️ The script assumes the repos are located in a base location "
-    read -rp 'Owner of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:aelfa]: ' GIT_USER
-    read -rp 'Name of the repo | ⚠️ CASE SENSITIVE | [EXAMPLE:scripts]: ' GIT_REPO
+    ## Edit this to change the base
+    REPO_BASE=/opt/data
+    read -erp "ENTER GITHUB USER'S NAME: " GIT_USER
+    read -erp "ENTER THE NAME OF USER'S REPO TO CLONE FROM: " GIT_REPO
     REPO_NAME=${GIT_REPO}
     REPO_OWNER=${GIT_USER}
     REPO_PATH=${REPO_BASE}/${REPO_OWNER}/${REPO_NAME}
