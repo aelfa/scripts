@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (c) 2020, Aelfa
+# Copyright (c) 2021, Aelfa
 # All rights reserved.
 # Useful script to clone & update git repos
 
