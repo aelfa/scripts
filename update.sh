@@ -20,3 +20,4 @@ for i in ${package_list}; do
     echo "$i is running , please wait"
     sleep 1
 done
+updateall
