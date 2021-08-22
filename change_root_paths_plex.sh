@@ -8,7 +8,7 @@
 MERGERFS_PATH () {
     read -ep 'OLD MERGERFS DIRECTORY | [EXAMPLE:/mnt/unionfs/]: ' OLD_MERGERFS_LOCATION
     read -ep 'NEW MERGERFS DIRECTORY | [EXAMPLE:/pg/unity/]: ' NEW_MERGERFS_LOCATION
-if [[ ! -d "${NEW_MERGERFS_LOCATION}" ]]; then  
+if [[ ! -d "${NEW_MERGERFS_LOCATION}" ]]; then
     echo " ⚠️ ${NEW_MERGERFS_LOCATION} is not a valid mergerfs path " && MERGERFS_PATH;
 fi
 }
@@ -22,20 +22,20 @@ PLEX_DATABASE="${PLEX_ROOT}/Library/Application Support/Plex Media Server/Plug-i
 
 read -ep 'Do you want to change Plex Library Paths | [Y/N]: '  answer
 
-if 
+if
     [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
     PLEX_PATHS
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " STOPPING PLEX DOCKER "
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker stop plex
-    echo 
+    echo
     MERGERFS_PATH
     sudo sqlite3 "${PLEX_DATABASE}" "UPDATE media_parts SET file= replace(file, '${OLD_MERGERFS_LOCATION}', '${NEW_MERGERFS_LOCATION}') where file like '%${OLD_MERGERFS_LOCATION}%'" &&
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ✅ Library Paths Changed "
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || echo " ⚠️ Failed to change Plex Library paths."; else 
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" || echo " ⚠️ Failed to change Plex Library paths."; else
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ Library Paths Unchanged "

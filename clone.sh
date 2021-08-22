@@ -14,7 +14,7 @@
     REPO_OWNER=${GIT_USER}
     REPO_PATH=${REPO_BASE}/${REPO_OWNER}/${REPO_NAME}
     REPO_LINK=${REPO_PREFIX}/${REPO_OWNER}/${REPO_NAME}.git
-    
+
 # CLONE FUNCTION
 clone () {
     sudo "$(command -v git)" clone --quiet "${REPO_LINK}" "${REPO_PATH}"
@@ -36,7 +36,7 @@ permissions() {
 
 # MAIN FUNCTION
 main () {
-    if [[ ! -d "${REPO_PATH}/.git" ]]; then 
+    if [[ ! -d "${REPO_PATH}/.git" ]]; then
     clone && permissions
     else
     update && permissions

@@ -4,8 +4,8 @@ function startcommand() {
 docker=$(docker --version)
 if [[ "$docker" == "" ]]; then
     install_docker
-else 
-    reinstall_docker 
+else
+    reinstall_docker
 fi
 }
 
