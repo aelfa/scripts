@@ -32,9 +32,9 @@ function hublogin() {
  echo " ⌛ INFO ! "
  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
  echo ""
- read -p "Enter username : " DOCKER_USER
- read -s -p "Enter password : " DOCKER_PASS
- sudo docker login --username=$DOCKER_USER --password=$DOCKER_PASS
+ read -erp "Enter username : " DOCKER_USER
+ read -erp -s "Enter password : " DOCKER_PASS
+ sudo docker login --username="$DOCKER_USER" --password="$DOCKER_PASS"
  echo ""
  echo ""
  echo "Log-In Done"

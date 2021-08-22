@@ -2,7 +2,7 @@
 
 function dockerprune() {
 
-    read -ep 'Would you like to remove all unused containers, networks, volumes, images and build cache? | [Y/N]: '  answer
+    read -erp 'Would you like to remove all unused containers, networks, volumes, images and build cache? | [Y/N]: '  answer
 
 if
     [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]; then
