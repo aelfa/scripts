@@ -18,8 +18,8 @@ else
         echo " ⌛ INFO ! "
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo ""
-        read -p "Enter username : " username
-        read -s -p "Enter password : " password
+        read -rp "Enter username : " username
+        read -s -rp "Enter password : " password
         echo ""
         egrep "^$username" /etc/passwd >/dev/null
                 pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
