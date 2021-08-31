@@ -20,10 +20,10 @@ clone () {
 
 # UPDATE FUNCTION
 update() {
-    sudo "$(command -v git)" -C "${REPO_LINK}" pull
-    sudo "$(command -v git)" -C "${REPO_LINK}" fetch --all --prune
-    sudo "$(command -v git)" -C "${REPO_LINK}" reset --hard HEAD
-    sudo "$(command -v git)" -C "${REPO_LINK}" pull
+    sudo "$(command -v git)" -C "${BASEDIR1}" pull
+    sudo "$(command -v git)" -C "${BASEDIR1}" fetch --all --prune
+    sudo "$(command -v git)" -C "${BASEDIR1}" reset --hard HEAD
+    sudo "$(command -v git)" -C "${BASEDIR1}" pull
 }
 
 # PERMISSION FUNCTION
