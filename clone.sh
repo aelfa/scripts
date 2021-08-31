@@ -36,6 +36,7 @@ permissions() {
 
 # MAIN FUNCTION
 run () {
+    if [[ ! -d "${rp}" ]];then sudo "$(command -v mkdir) -p "${rp}";fi
     if [[ ! -d "${rp}/.git" ]];then clone && permissions;else update && permissions;fi
 }
 run
