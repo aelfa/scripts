@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author: Aelfa
+# Discription: I wrote this script back when it was needed for a project. This should change root paths for your arr's. This is not needed for docker containers as you can easily use binds instead.
 
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " STOPPING ALL DOCKER CONTAINERS "

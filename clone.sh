@@ -1,13 +1,11 @@
 #!/bin/bash
-# Copyright (c) 2021, Aelfa
-# All rights reserved.
-# Useful script to clone & update git repos
+# Author: Aelfa
+# Description: Useful script to clone & update git repos
 
 # INFORMATION
     if [[ ! -x $(command -v git) ]];then sudo "$(command -v apt)" install git -yqq;fi
     REPO_URL="https://github.com"
-    ## Edit this to change the base
-    BASEDIR=/opt/.github
+    BASEDIR=/opt/.github # edit this to change the base directory
     read -erp "Owner of the github repository? " GITHUB_OWNER
     read -erp "Name of the repository to clone from? " GITHUB_REPO
     BASEDIR1=$BASEDIR/$GITHUB_OWNER-$GITHUB_REPO

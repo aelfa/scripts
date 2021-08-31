@@ -1,5 +1,6 @@
 #!/bin/bash
-# This script will change the root paths for your Plex Libaries
+# Author: Aelfa
+# This script will change the root paths for your Plex Libaries. Not recommended to be used with docker, as bind mounts can easily be used instead.
 
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ⚠️ Strictly follow the EXAMPLE format while typing your paths "
