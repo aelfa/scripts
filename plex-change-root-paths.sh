@@ -14,9 +14,9 @@ fi
 }
 
 PLEX_PATHS () {
-sudo docker inspect plex | grep config:rw | sed 's/\"//g' | tr -d ' ' | sed 's/\:.*//g' 2>&1 | tee /tmp/plex.info
+sudo "$(command -v docker)" inspect plex | grep config:rw | sed 's/\"//g' | tr -d ' ' | sed 's/\:.*//g' 2>&1 | tee /tmp/plex.info
 PLEX_ROOT="$(cat /tmp/plex.info)"
-PLEX_DATABASE="${PLEX_ROOT}/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db"
+PLEX_DATABASE="$PLEX_ROOT/Library/Application Support/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db"
 }
 
 read -erp 'Do you want to change Plex Library Paths | [Y/N]: '  answer
@@ -27,7 +27,7 @@ if
     echo
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " STOPPING PLEX DOCKER "
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker stop plex
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo "$(command -v docker)" stop plex
     echo
     MERGERFS_PATH
     sudo sqlite3 "${PLEX_DATABASE}" "UPDATE media_parts SET file= replace(file, '${OLD_MERGERFS_LOCATION}', '${NEW_MERGERFS_LOCATION}') where file like '%${OLD_MERGERFS_LOCATION}%'" &&
@@ -42,4 +42,4 @@ if
 fi
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " STARTING PLEX DOCKER "
-    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo docker start plex
+    echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && sudo "$(command -v docker)" start plex
