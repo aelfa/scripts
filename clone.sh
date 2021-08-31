@@ -10,7 +10,7 @@
     BASEDIR=/opt/.github
     read -erp "Owner of the github repository? " GITHUB_OWNER
     read -erp "Name of the repository to clone from? " GITHUB_REPO
-    BASEDIR1=$BASEDIR/$GITHUB_OWNER/$GITHUB_REPO
+    BASEDIR1=$BASEDIR/$GITHUB_OWNER-$GITHUB_REPO
     REPO_LINK=$REPO_URL/$GITHUB_OWNER/$GITHUB_REPO.git
 
 # CLONE FUNCTION
