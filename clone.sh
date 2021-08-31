@@ -5,15 +5,15 @@
 
 # INFORMATION
     if [[ ! -x $(command -v git) ]];then sudo "$(command -v apt)" install git -yqq;fi
-    rp="https://github.com"
+    ru="https://github.com"
     ## Edit this to change the base
-    storage=/opt/.git
+    storage=/opt/.github
     read -erp "Owner of the github repository? " gu
     read -erp "Name of the repository to clone from? " gr
     rn=${gr}
     ro=${gu}
     rp=${storage}/${ro}/${rn}
-    rl=${rp}/${ro}/${rn}.git
+    rl=${ru}/${ro}/${rn}.git
 
 # CLONE FUNCTION
 clone () {
