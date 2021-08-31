@@ -36,6 +36,6 @@ permissions() {
 run () {
     if [[ ! -d $BASEDIR ]];then sudo "$(command -v mkdir)" -p "$BASEDIR";fi
     if [[ ! -d $BASEDIR1/.git ]];then clone && permissions;fi
-    if [[ -d $BASEDIR1/.git ]];then update && permissions;fi 
+    if [[ -d $BASEDIR1/.git ]];then update && permissions;fi
 }
 run
