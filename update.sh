@@ -16,7 +16,7 @@ EOF
 updateall() {
 package_list="update upgrade dist-upgrade autoremove autoclean "
 for i in ${package_list}; do
-    sudo apt $i -yqq 1>/dev/null 2>&1
+    sudo apt "$i" -yqq 1>/dev/null 2>&1
     echo "$i is running , please wait"
     sleep 1
 done
