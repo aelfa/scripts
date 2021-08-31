@@ -5,38 +5,36 @@
 
 # INFORMATION
     if [[ ! -x $(command -v git) ]];then sudo "$(command -v apt)" install git -yqq;fi
-    ru="https://github.com"
+    REPO_URL="https://github.com"
     ## Edit this to change the base
-    storage=/opt/.github
-    read -erp "Owner of the github repository? " gu
-    read -erp "Name of the repository to clone from? " gr
-    rn=${gr}
-    ro=${gu}
-    rp=${storage}/${ro}/${rn}
-    rl=${ru}/${ro}/${rn}.git
+    BASEDIR=/opt/.github
+    read -erp "Owner of the github repository? " GITHUB_OWNER
+    read -erp "Name of the repository to clone from? " GITHUB_REPO
+    BASEDIR1=$BASEDIR/$GITHUB_OWNER/$GITHUB_REPO
+    REPO_LINK=$REPO_URL/$GITHUB_OWNER/$GITHUB_REPO.git
 
 # CLONE FUNCTION
 clone () {
-    sudo "$(command -v git)" clone --quiet "${rl}" "${rp}"
+    sudo "$(command -v git)" clone --quiet "${REPO_LINK}" "$BASEDIR1"
 }
 
 # UPDATE FUNCTION
 update() {
-    sudo "$(command -v git)" -C "${rp}" pull
-    sudo "$(command -v git)" -C "${rp}" fetch --all --prune
-    sudo "$(command -v git)" -C "${rp}" reset --hard HEAD
-    sudo "$(command -v git)" -C "${rp}" pull
+    sudo "$(command -v git)" -C "${REPO_LINK}" pull
+    sudo "$(command -v git)" -C "${REPO_LINK}" fetch --all --prune
+    sudo "$(command -v git)" -C "${REPO_LINK}" reset --hard HEAD
+    sudo "$(command -v git)" -C "${REPO_LINK}" pull
 }
 
 # PERMISSION FUNCTION
 permissions() {
-    sudo "$(command -v chown)" -cR 1000:1000 "${storage}" 1>/dev/null 2>&1
-    sudo "$(command -v chmod)" -cR 775 "${storage}" 1>/dev/null 2>&1
+    sudo "$(command -v chown)" -cR 1000:1000 $BASEDIR 1>/dev/null 2>&1
+    sudo "$(command -v chmod)" -cR 775 $BASEDIR 1>/dev/null 2>&1
 }
 
 # MAIN FUNCTION
 run () {
-    if [[ ! -d "${rp}" ]];then sudo "$(command -v mkdir)" -p "${rp}";fi
-    if [[ ! -d "${rp}/.git" ]];then clone && permissions;else update && permissions;fi
+    if [[ ! -d $BASEDIR ]];then sudo "$(command -v mkdir)" -p $BASEDIR;fi
+    if [[ ! -d "$BASEDIR1/.git" ]];then clone && permissions;else update && permissions;fi
 }
 run
