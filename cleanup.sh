@@ -5,7 +5,7 @@
 
 # basic settings
 BASEDIR=/mnt/downloads
-TARGET_FOLDER="$BASEDIR/{sabnzbd,nzbget}/" # find files in this folders
+TARGET_FOLDER="$BASEDIR/{sabnzbd,nzbget,nzb}/" # find files in this folders
 FIND_SAMPLE_SIZE='100M' # files smaller then this are seen as samples and get deleted
 
 # advanced settings
