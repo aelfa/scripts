@@ -15,26 +15,26 @@
 
 # CLONE FUNCTION
 clone () {
-    sudo "$(command -v git)" clone --quiet "${REPO_LINK}" "$BASEDIR1"
+    sudo "$(command -v git)" clone --quiet "$REPO_LINK" "$BASEDIR1"
 }
 
 # UPDATE FUNCTION
 update() {
-    sudo "$(command -v git)" -C "${BASEDIR1}" pull
-    sudo "$(command -v git)" -C "${BASEDIR1}" fetch --all --prune
-    sudo "$(command -v git)" -C "${BASEDIR1}" reset --hard HEAD
-    sudo "$(command -v git)" -C "${BASEDIR1}" pull
+    sudo "$(command -v git)" -C "$BASEDIR1" pull
+    sudo "$(command -v git)" -C "$BASEDIR1" fetch --all --prune
+    sudo "$(command -v git)" -C "$BASEDIR1" reset --hard HEAD
+    sudo "$(command -v git)" -C "$BASEDIR1" pull
 }
 
 # PERMISSION FUNCTION
 permissions() {
-    sudo "$(command -v chown)" -cR 1000:1000 $BASEDIR 1>/dev/null 2>&1
-    sudo "$(command -v chmod)" -cR 775 $BASEDIR 1>/dev/null 2>&1
+    sudo "$(command -v chown)" -cR 1000:1000 "$BASEDIR" 1>/dev/null 2>&1
+    sudo "$(command -v chmod)" -cR 775 "$BASEDIR" 1>/dev/null 2>&1
 }
 
 # MAIN FUNCTION
 run () {
-    if [[ ! -d $BASEDIR ]];then sudo "$(command -v mkdir)" -p $BASEDIR;fi
-    if [[ ! -d "$BASEDIR1/.git" ]];then clone && permissions;else update && permissions;fi
+    if [[ ! -d $BASEDIR ]];then sudo "$(command -v mkdir)" -p "$BASEDIR";fi
+    if [[ ! -d $BASEDIR1/.git ]];then clone && permissions;else update && permissions;fi
 }
 run
