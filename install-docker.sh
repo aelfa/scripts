@@ -40,7 +40,7 @@ sudo systemctl enable --now docker
 sudo systemctl status docker | awk '$1 == "Active:" {print $2,$3}'
 
 # add current user to docker group so there is no need to use sudo when running docker
-sudo usermod -aG docker $(whoami)
+sudo usermod -aG docker "$(whoami)"
 sudo id -nG
 }
 
