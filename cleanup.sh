@@ -4,7 +4,8 @@
 #####################################################
 
 # basic settings
-TARGET_FOLDER="/pg/completed/{sabnzbd,nzbget}/" # find files in this folders
+BASEDIR=/mnt/downloads # edit this to change the base
+TARGET_FOLDER="$BASEDIR/{sabnzbd,nzbget,nzb}/" # find files in this folders
 FIND_SAMPLE_SIZE='100M' # files smaller then this are seen as samples and get deleted
 
 # advanced settings
