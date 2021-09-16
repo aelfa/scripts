@@ -3,16 +3,16 @@
 # Description: Useful script to clone & update git repos
 
 # INFORMATION
-    if [[ ! -x $(command -v git) ]];then sudo "$(command -v apt)" install git -yqq;fi
-    REPO_URL="https://github.com"
-    BASEDIR=/opt/.github # edit this to change the base directory
-    read -erp "Owner of the github repository? " GITHUB_OWNER
-    read -erp "Name of the repository to clone from? " GITHUB_REPO
-    BASEDIR1=$BASEDIR/$GITHUB_OWNER-$GITHUB_REPO
-    REPO_LINK=$REPO_URL/$GITHUB_OWNER/$GITHUB_REPO.git
+if [[ ! -x $(command -v git) ]]; then sudo "$(command -v apt)" install git -yqq; fi
+REPO_URL="https://github.com"
+BASEDIR=/opt/.github # edit this to change the base directory
+read -erp "Owner of the github repository? " GITHUB_OWNER
+read -erp "Name of the repository to clone from? " GITHUB_REPO
+BASEDIR1=$BASEDIR/$GITHUB_OWNER-$GITHUB_REPO
+REPO_LINK=$REPO_URL/$GITHUB_OWNER/$GITHUB_REPO.git
 
 # CLONE FUNCTION
-clone () {
+clone() {
     sudo "$(command -v git)" clone --quiet "$REPO_LINK" "$BASEDIR1"
 }
 
@@ -31,9 +31,9 @@ permissions() {
 }
 
 # MAIN FUNCTION
-run () {
-    if [[ ! -d $BASEDIR ]];then sudo "$(command -v mkdir)" -p "$BASEDIR";fi
-    if [[ ! -d $BASEDIR1/.git ]];then clone && permissions;fi
-    if [[ -d $BASEDIR1/.git ]];then update && permissions;fi
+run() {
+    if [[ ! -d $BASEDIR ]]; then sudo "$(command -v mkdir)" -p "$BASEDIR"; fi
+    if [[ ! -d $BASEDIR1/.git ]]; then clone && permissions; fi
+    if [[ -d $BASEDIR1/.git ]]; then update && permissions; fi
 }
 run

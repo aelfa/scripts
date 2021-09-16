@@ -1,7 +1,7 @@
 #!/bin/bash
 ##usercheck
 if [ "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')" ]; then
-	usermod -aG sudo "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')"
+        usermod -aG sudo "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')"
         sudo usermod -s /bin/bash "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')"
         sudo usermod -aG video "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')"
         sudo usermod -aG docker "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')"
@@ -22,12 +22,12 @@ else
         read -s -rp "Enter password : " password
         echo ""
         grep -E "^$username" /etc/passwd >/dev/null
-                pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
-                useradd -m -p "$pass" "$username"
-                usermod -aG sudo "$username"
-                sudo usermod -s /bin/bash "$username"
-                usermod -aG video "$username"
-				usermod -aG docker "$username"
+        pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
+        useradd -m -p "$pass" "$username"
+        usermod -aG sudo "$username"
+        sudo usermod -s /bin/bash "$username"
+        usermod -aG video "$username"
+        usermod -aG docker "$username"
         echo ""
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo " ✅ PASSED ! User has been added to system!"

@@ -9,18 +9,18 @@ function badinput() {
 }
 
 function rclone_update_stable() {
-curl https://rclone.org/install.sh | sudo bash
+  curl https://rclone.org/install.sh | sudo bash
 }
 
 function rclone_update_beta() {
-curl https://rclone.org/install.sh | sudo bash -s beta
+  curl https://rclone.org/install.sh | sudo bash -s beta
 }
 
 function mergerupdate() {
-mgversion="$(curl -s https://api.github.com/repos/trapexit/mergerfs/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
-wget https://github.com/trapexit/mergerfs/releases/download/${mgversion}/mergerfs_${mgversion}.ubuntu-bionic_amd64.deb -O /tmp/mergerfs.deb
-dpkg -i /tmp/mergerfs.deb
-rm -rf /tmp/mergerfs.deb
+  mgversion="$(curl -s https://api.github.com/repos/trapexit/mergerfs/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
+  wget https://github.com/trapexit/mergerfs/releases/download/${mgversion}/mergerfs_${mgversion}.ubuntu-bionic_amd64.deb -O /tmp/mergerfs.deb
+  dpkg -i /tmp/mergerfs.deb
+  rm -rf /tmp/mergerfs.deb
 }
 
 function sudocheck() {
@@ -35,20 +35,20 @@ EOF
 }
 
 function updateall() {
-package_list="update upgrade dist-upgrade autoremove autoclean "
-for i in ${package_list}; do
+  package_list="update upgrade dist-upgrade autoremove autoclean "
+  for i in ${package_list}; do
     sudo apt $i -yqq 1>/dev/null 2>&1
     echo "$i is running , please wait"
     sleep 1
-done
-apt-get install fuse libc6 -yqq
+  done
+  apt-get install fuse libc6 -yqq
 }
 
 function mergerfsupdate() {
-mgversion="$(curl -s https://api.github.com/repos/trapexit/mergerfs/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
-mgstored="$(mergerfs -v | grep 'mergerfs version:' | awk '{print $3}')"
+  mgversion="$(curl -s https://api.github.com/repos/trapexit/mergerfs/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
+  mgstored="$(mergerfs -v | grep 'mergerfs version:' | awk '{print $3}')"
 
-tee <<-EOF
+  tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  mergerfs Update Panel  --local version $mgstored
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -73,9 +73,9 @@ EOF
 }
 
 function rcloneupdate() {
-rcversion="$(curl -s https://api.github.com/repos/rclone/rclone/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
-rcstored="$(rclone --version | awk '{print $2}' | tail -n 3 | head -n 1)"
-      tee <<-EOF
+  rcversion="$(curl -s https://api.github.com/repos/rclone/rclone/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')"
+  rcstored="$(rclone --version | awk '{print $2}' | tail -n 3 | head -n 1)"
+  tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  rClone Update Panel  			$rcstored
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -102,10 +102,10 @@ EOF
 
 function update() {
 
-sudocheck
-updateall
+  sudocheck
+  updateall
 
-tee <<-EOF
+  tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   >>> ---- Update INTERFACE ---- <<<<
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

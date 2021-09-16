@@ -4,9 +4,9 @@
 #####################################################
 
 # basic settings
-BASEDIR=/mnt/downloads # edit this to change the base
+BASEDIR=/mnt/downloads                         # edit this to change the base
 TARGET_FOLDER="$BASEDIR/{sabnzbd,nzbget,nzb}/" # find files in this folders
-FIND_SAMPLE_SIZE='100M' # files smaller then this are seen as samples and get deleted
+FIND_SAMPLE_SIZE='100M'                        # files smaller then this are seen as samples and get deleted
 
 # advanced settings
 FIND=$(which find)
@@ -52,16 +52,14 @@ UNWANTED_FILES=(
 )
 #Folder Setting
 condition="-iname '${UNWANTED_FILES[0]}'"
-for ((i = 1; i < ${#UNWANTED_FILES[@]}; i++))
-do
+for ((i = 1; i < ${#UNWANTED_FILES[@]}; i++)); do
     condition="${condition} ${FIND_ADD_NAME} '${UNWANTED_FILES[i]}'"
 done
 command="${FIND} ${TARGET_FOLDER} -mindepth 1 ${FIND_BASE_CONDITION_UNWANTED} \( ${condition} \) ${FIND_ACTION}"
 #echo "Executing ${command}"
 eval "${command}"
 
-for ((i = 0; i < ${#WANTED_FILES[@]}-1; i++))
-do
+for ((i = 0; i < ${#WANTED_FILES[@]} - 1; i++)); do
     condition2="${condition2} ${FIND_DEL_NAME} '${WANTED_FILES[i]}'"
 done
 command="${FIND} ${TARGET_FOLDER} -mindepth 1 ${FIND_BASE_CONDITION_WANTED} \( ${condition2} \) ${FIND_ACTION}"

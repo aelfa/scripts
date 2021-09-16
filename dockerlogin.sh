@@ -14,30 +14,30 @@ EOF
   fi
 }
 function updateall() {
-package_list="update upgrade dist-upgrade autoremove autoclean "
-for i in ${package_list}; do
+  package_list="update upgrade dist-upgrade autoremove autoclean "
+  for i in ${package_list}; do
     sudo apt $i -yqq 1>/dev/null 2>&1
     echo "$i is running , please wait"
     sleep 1
-done
-## install pass
-sudo apt install pass -yqq 1>/dev/null 2>&1
+  done
+  ## install pass
+  sudo apt install pass -yqq 1>/dev/null 2>&1
 }
 function hublogin() {
- clear
- echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
- echo " ⌛ INFO ! "
- echo " ⌛ INFO ! Type your Docker Hub Username"
- echo " ⌛ INFO ! Type your Docker Hub passwort"
- echo " ⌛ INFO ! "
- echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
- echo ""
- read -erp "Enter username : " DOCKER_USER
- read -erp -s "Enter password : " DOCKER_PASS
- sudo docker login --username="$DOCKER_USER" --password="$DOCKER_PASS"
- echo ""
- echo ""
- echo "Log-In Done"
+  clear
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo " ⌛ INFO ! "
+  echo " ⌛ INFO ! Type your Docker Hub Username"
+  echo " ⌛ INFO ! Type your Docker Hub passwort"
+  echo " ⌛ INFO ! "
+  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  echo ""
+  read -erp "Enter username : " DOCKER_USER
+  read -erp -s "Enter password : " DOCKER_PASS
+  sudo docker login --username="$DOCKER_USER" --password="$DOCKER_PASS"
+  echo ""
+  echo ""
+  echo "Log-In Done"
 }
 
 sudocheck
