@@ -4,7 +4,7 @@
 # Please note this script assumes your key is named id_ecdsa and added to your ssh directory and github.
 
 # User/Group Information
-readonly DETECTED_PUID=${SUDO_UID:-$UID}
+readonly DETECTED_PUID=1000
 readonly DETECTED_UNAME=$(id -un "${DETECTED_PUID}" 2>/dev/null || true)
 readonly DETECTED_PGID=$(id -g "${DETECTED_PUID}" 2>/dev/null || true)
 readonly DETECTED_UGROUP=$(id -gn "${DETECTED_PUID}" 2>/dev/null || true)
