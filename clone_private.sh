@@ -1,6 +1,7 @@
 #!/bin/bash
 # Author: Aelfa
 # Description: Useful script to clone & update private git repos
+# Please note this script assumes your key is named id_ecdsa and added to your ssh directory and github.
 
 # User/Group Information
 readonly DETECTED_PUID=${SUDO_UID:-$UID}
@@ -8,6 +9,7 @@ readonly DETECTED_UNAME=$(id -un "${DETECTED_PUID}" 2>/dev/null || true)
 readonly DETECTED_PGID=$(id -g "${DETECTED_PUID}" 2>/dev/null || true)
 readonly DETECTED_UGROUP=$(id -gn "${DETECTED_PUID}" 2>/dev/null || true)
 readonly DETECTED_HOMEDIR=$(eval echo "~${DETECTED_UNAME}" 2>/dev/null || true)
+SSH_BASE="${DETECTED_HOMEDIR}"/.ssh
 
 # INFORMATION
 if [[ ! -x $(command -v git) ]]; then sudo "$(command -v apt)" install git -yqq; fi
@@ -37,6 +39,18 @@ update() {
 permissions() {
     "$(command -v chown)" -R "${DETECTED_PUID}":"${DETECTED_PGID}" "$BASEDIR" 1>/dev/null 2>&1
     "$(command -v chmod)" -R 775 "$BASEDIR" 1>/dev/null 2>&1
+}
+
+ssh_add() {
+    if [[ ! -d "$SSH_BASE" ]]; then
+        mkdir "$SSH_BASE"
+        chmod 700 "$SSH_BASE"
+        touch "$SSH_BASE"/authorized_keys
+        chmod 600 "$SSH_BASE"/authorized_keys
+        chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "$SSH_BASE"
+    else
+        echo " ssh directroy exists "
+    fi
 }
 
 # MAIN FUNCTION
