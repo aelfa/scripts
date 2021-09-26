@@ -3,7 +3,7 @@
 # Description: Useful script to clone & update git repos
 
 # User/Group Information
-readonly DETECTED_PUID=1000
+DETECTED_PUID=1000
 readonly DETECTED_UNAME=$(id -un "${DETECTED_PUID}" 2>/dev/null || true)
 readonly DETECTED_PGID=$(id -g "${DETECTED_PUID}" 2>/dev/null || true)
 readonly DETECTED_UGROUP=$(id -gn "${DETECTED_PUID}" 2>/dev/null || true)
