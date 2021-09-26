@@ -2,6 +2,13 @@
 # Author: Aelfa
 # Description: Useful script to clone & update git repos
 
+# User/Group Information
+readonly DETECTED_PUID=${SUDO_UID:-$UID}
+readonly DETECTED_UNAME=$(id -un "${DETECTED_PUID}" 2>/dev/null || true)
+readonly DETECTED_PGID=$(id -g "${DETECTED_PUID}" 2>/dev/null || true)
+readonly DETECTED_UGROUP=$(id -gn "${DETECTED_PUID}" 2>/dev/null || true)
+readonly DETECTED_HOMEDIR=$(eval echo "~${DETECTED_UNAME}" 2>/dev/null || true)
+
 # INFORMATION
 if [[ ! -x $(command -v git) ]]; then sudo "$(command -v apt)" install git -yqq; fi
 REPO_URL="https://github.com"
@@ -26,8 +33,8 @@ update() {
 
 # PERMISSION FUNCTION
 permissions() {
-    sudo "$(command -v chown)" -cR 1000:1000 "$BASEDIR" 1>/dev/null 2>&1
-    sudo "$(command -v chmod)" -cR 775 "$BASEDIR" 1>/dev/null 2>&1
+    "$(command -v chown)" -R "${DETECTED_PUID}":"${DETECTED_PGID}" "$BASEDIR" 1>/dev/null 2>&1
+    "$(command -v chmod)" -R 775 "$BASEDIR" 1>/dev/null 2>&1
 }
 
 # MAIN FUNCTION
