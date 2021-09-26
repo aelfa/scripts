@@ -41,8 +41,8 @@ permissions() {
 
 # MAIN FUNCTION
 run() {
+    if [[ ! -f $SSH_BASE/id_ecdsa ]]; then ssh_add && echo " Please add your ssh keys and restart the process " && exit; fi
     if [[ ! -d $BASEDIR ]]; then "$(command -v mkdir)" -p "$BASEDIR"; fi
     if [[ ! -d $BASEDIR/.git ]]; then clone && permissions; else update && permissions; fi
 }
-if [[ ! -f $SSH_BASE/id_ecdsa ]]; then ssh_add && echo " Please add your ssh keys and restart the process " && exit; fi
 run
