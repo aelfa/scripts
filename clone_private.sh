@@ -14,9 +14,9 @@ SSH_BASE="${DETECTED_HOMEDIR}"/.ssh
 # INFORMATION
 if [[ ! -x $(command -v git) ]]; then sudo "$(command -v apt)" install git -yqq; fi
 REPO_URL="git@github.com"
-BASEDIR=/opt/.github/$GITHUB_REPO # edit this to change the base directory
 read -erp "Owner of the github repository? " GITHUB_OWNER
 read -erp "Name of the repository to clone from? " GITHUB_REPO
+BASEDIR=/opt/.github/${GITHUB_REPO} # edit this to change the base directory
 REPO_LINK=$REPO_URL:$GITHUB_OWNER/$GITHUB_REPO.git
 
 # CLONE FUNCTION
