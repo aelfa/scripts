@@ -28,7 +28,7 @@ ARR_PATHS() {
     fi
 }
 
-read -ep 'Do you want to change root paths for your Arrs | [Y/N]: ' answer
+read -erp 'Do you want to change root paths for your Arrs | [Y/N]: ' answer
 if
     [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]
 then
