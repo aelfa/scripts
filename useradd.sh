@@ -1,4 +1,8 @@
-#!/bin/bash
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+# Copyright (c) 2021, MrDoob
+# All rights reserved.
+
 ##usercheck
 if [ "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')" ]; then
     usermod -aG sudo "$(grep "1000" /etc/passwd | cut -d: -f1 | awk '{print $1}')"

@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bash
 # shellcheck shell=bash
-# Copyright (c) 2020, MrDoob
+# Copyright (c) 2021, MrDoob
 # All rights reserved.
 
 function sudocheck() {
