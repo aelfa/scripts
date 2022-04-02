@@ -15,13 +15,13 @@
 
 BASEDIR=/mnt/remotes/.anchors
 while true; do
-    if [[ ! -x $(command -v docker) ]]; then exit; fi
+    if [[ ! -x $(which docker) ]]; then exit; fi
     if [[ ! -f $BASEDIR/tdrive.anchor ]]; then exit; fi
-    plex=$($(command -v docker) ps -aq --format '{{.Names}}' | grep -x plex)
+    plex=$($(which docker) ps -aq --format '{{.Names}}' | grep -x plex)
     if [[ $plex == "plex" ]]; then
         X_PLEX_TOKEN=$(sudo cat "/opt/appdata/plex/database/Library/Application Support/Plex Media Server/Preferences.xml" | sed -e 's;^.* PlexOnlineToken=";;' | sed -e 's;".*$;;' | tail -1)
-        sectionid=$($(command -v docker) exec -it plex /usr/lib/plexmediaserver/Plex\ Media\ Scanner --list | awk '{print $1}' | sed -e 's/://g')
-        sectionname=$($(command -v docker) exec -it plex /usr/lib/plexmediaserver/Plex\ Media\ Scanner --list | awk '{print $2}' | sed -e 's/://g')
+        sectionid=$($(which docker) exec -it plex /usr/lib/plexmediaserver/Plex\ Media\ Scanner --list | awk '{print $1}' | sed -e 's/://g')
+        sectionname=$($(which docker) exec -it plex /usr/lib/plexmediaserver/Plex\ Media\ Scanner --list | awk '{print $2}' | sed -e 's/://g')
         for sn in ${sectionname}; do
             echo "Scanning Library $sn"
             for id in ${sectionid}; do

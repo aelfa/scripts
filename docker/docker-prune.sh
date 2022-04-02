@@ -7,7 +7,7 @@ function dockerprune() {
     if
         [ "${answer}" == "y" ] || [ "${answer}" == "Y" ] || [ "${answer}" == "yes" ] || [ "${answer}" == "Yes" ] || [ "${answer}" == "YES" ]
     then
-        sudo "$(command -v docker)" system prune -a --volumes --force &&
+        sudo "$(which docker)" system prune -a --volumes --force &&
             echo
         echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         echo " ✅ Prune Completed Successfully "
