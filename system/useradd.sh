@@ -25,13 +25,13 @@ else
     read -rp "Enter username : " username
     read -s -rp "Enter password : " password
     echo ""
-    grep -E "^$username" /etc/passwd >/dev/null
+    $(which grep) -E "^$username" /etc/passwd >/dev/null
     pass=$(perl -e 'print crypt($ARGV[0], "password")' "$password")
-    useradd -m -p "$pass" "$username"
-    usermod -aG sudo "$username"
-    sudo usermod -s /bin/bash "$username"
-    usermod -aG video "$username"
-    usermod -aG docker "$username"
+    $(which useradd) -m -p "$pass" "$username"
+    $(which usermod) -aG sudo "$username"
+    $(which sudo) usermod -s /bin/bash "$username"
+    $(which usermod) -aG video "$username"
+    $(which usermod) -aG docker "$username"
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ✅ PASSED ! User has been added to system!"
