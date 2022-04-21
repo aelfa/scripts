@@ -10,7 +10,7 @@ cloudprovider=oci #type the name to your cloudprovider example azure, aws, oci
 if [[ $EUID == 0 ]]; then
   tee <<-EOF
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⛔  You must execute as a user or as root, please don't use sudo
+          ⛔  You must execute as a user or as root, please don't use sudo
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 EOF
   exit 0
@@ -34,6 +34,6 @@ else
   echo "IP has changed: $CURRENT_IPV4"
   echo "$(date),$CURRENT_IPV4" >>"$LOG_FILE"
   sed -i -e "s#^mgmt_cidr = .*#mgmt_cidr = \"$CURRENT_IPV4/32\"#" "$BASEFILE"
-  cd "$BASEDIR" && terraform apply -auto-approve -var-file="oci.tfvars"
+  cd "$BASEDIR" && terraform apply -auto-approve -var-file="$cloudprovider.tfvars"
 fi
 #EOF

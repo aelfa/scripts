@@ -21,42 +21,42 @@ REPO_LINK=$REPO_URL:$GITHUB_OWNER/$GITHUB_REPO.git
 
 # CLONE FUNCTION
 clone() {
-    eval "$(ssh-agent -s)"
-    ssh-add "${DETECTED_HOMEDIR}/.ssh/id_ecdsa"
-    "$(which git)" clone --quiet "$REPO_LINK" "$BASEDIR"
+  eval "$(ssh-agent -s)"
+  ssh-add "${DETECTED_HOMEDIR}/.ssh/id_ecdsa"
+  "$(which git)" clone --quiet "$REPO_LINK" "$BASEDIR"
 }
 
 # UPDATE FUNCTION
 update() {
-    eval "$(ssh-agent -s)"
-    ssh-add "${DETECTED_HOMEDIR}/.ssh/id_ecdsa"
-    "$(which git)" -C "$BASEDIR" pull
-    "$(which git)" -C "$BASEDIR" fetch --all --prune
-    "$(which git)" -C "$BASEDIR" reset --hard HEAD
-    "$(which git)" -C "$BASEDIR" pull
+  eval "$(ssh-agent -s)"
+  ssh-add "${DETECTED_HOMEDIR}/.ssh/id_ecdsa"
+  "$(which git)" -C "$BASEDIR" pull
+  "$(which git)" -C "$BASEDIR" fetch --all --prune
+  "$(which git)" -C "$BASEDIR" reset --hard HEAD
+  "$(which git)" -C "$BASEDIR" pull
 }
 # PERMISSION FUNCTION
 permissions() {
-    "$(which chown)" -R "${DETECTED_PUID}":"${DETECTED_PGID}" "$BASEDIR" 1>/dev/null 2>&1
-    "$(which chmod)" -R 775 "$BASEDIR" 1>/dev/null 2>&1
+  "$(which chown)" -R "${DETECTED_PUID}":"${DETECTED_PGID}" "$BASEDIR" 1>/dev/null 2>&1
+  "$(which chmod)" -R 775 "$BASEDIR" 1>/dev/null 2>&1
 }
 
 ssh_add() {
-    if [[ ! -d "$SSH_BASE" ]]; then
-        mkdir "$SSH_BASE"
-        chmod 700 "$SSH_BASE"
-        touch "$SSH_BASE"/authorized_keys
-        chmod 600 "$SSH_BASE"/authorized_keys
-        chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "$SSH_BASE"
-    else
-        echo " ssh directroy exists "
-    fi
+  if [[ ! -d "$SSH_BASE" ]]; then
+    mkdir "$SSH_BASE"
+    chmod 700 "$SSH_BASE"
+    touch "$SSH_BASE"/authorized_keys
+    chmod 600 "$SSH_BASE"/authorized_keys
+    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "$SSH_BASE"
+  else
+    echo " ssh directroy exists "
+  fi
 }
 
 # MAIN FUNCTION
 run() {
-    if [[ ! -f $SSH_BASE/id_ecdsa ]]; then ssh_add && echo " Please add your ssh keys and restart the process " && exit; fi
-    if [[ ! -d $BASEDIR ]]; then "$(which mkdir)" -p "$BASEDIR"; fi
-    if [[ ! -d $BASEDIR/.git ]]; then clone && permissions; else update && permissions; fi
+  if [[ ! -f $SSH_BASE/id_ecdsa ]]; then ssh_add && echo " Please add your ssh keys and restart the process " && exit; fi
+  if [[ ! -d $BASEDIR ]]; then "$(which mkdir)" -p "$BASEDIR"; fi
+  if [[ ! -d $BASEDIR/.git ]]; then clone && permissions; else update && permissions; fi
 }
 run
