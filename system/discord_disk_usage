@@ -35,7 +35,7 @@ ProgressBar () {
 printf "\r${3:-Progress} : [${_done// /#}${_left// /-}] ${_progress}%%"
 
 }
-webhook_url='https://discord.com/api/webhooks/777511962074021908/a9JrnqpGKhLg6H7v8fVTADGtEOUyQc7k7-cpXuuRavuzWxptha3dL9ELJvTXvCG5ojM_'
+webhook_url='YOUR_DISCORD_WEBHOOK_URL_HERE'
 
 DEBUGMODE=0
 
