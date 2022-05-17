@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2086
+# shellcheck disable=SC2046
+# Author=Aelfa
+# Co-Authors=doob187, nemchik
 set -euo pipefail
 IFS=$'\n\t'
 
@@ -41,31 +45,16 @@ main() {
     # System Info
     readonly ARCH=$(uname -m)
     readonly DPKG_ARCH=$(dpkg --print-architecture)
-    readonly ID=$(grep --color=never -Po '^ID=\K.*' /etc/os-release)
-    readonly VERSION_CODENAME=$(grep --color=never -Po '^VERSION_CODENAME=\K.*' /etc/os-release)
+    readonly ID=$($(which grep) --color=never -Po '^ID=\K.*' /etc/os-release)
+    readonly VERSION_CODENAME=$($(which grep) --color=never -Po '^VERSION_CODENAME=\K.*' /etc/os-release)
 
-    # apt-get updates, installs, and cleanups
-    sudo apt-get -y update
-    sudo apt-get -y install \
-        apt-transport-https \
-        ca-certificates \
-        curl \
-        fail2ban \
-        fonts-powerline \
-        fuse \
-        git \
-        grep \
-        htop \
-        ncdu \
-        python3 \
-        python3-pip \
-        rsync \
-        sed \
-        smartmontools \
-        tmux
-    sudo apt-get -y dist-upgrade
-    sudo apt-get -y autoremove
-    sudo apt-get -y autoclean
+    # apt updates, installs, and cleanups
+echo "**** update system ****"
+      updates="update upgrade autoremove autoclean"
+      for upp in ${updates}; do $(which apt) $upp -yqq &>/dev/null && clear; done
+echo "**** install build packages ****"
+      packages="apt-transport-https ca-certificates fail2ban fuse curl fonts-powerline grep htop ncdu python3 python3-pip sed smartmontools tmux wget jq tzdata rsync"
+      $(which apt) $packages -yqq &>/dev/null
 
     # kernel modules for vpn
     #echo "iptable_mangle" | sudo tee /etc/modules-load.d/iptable_mangle.conf
@@ -74,46 +63,46 @@ main() {
     # tmux config
     # https://github.com/gpakosz/.tmux
     if [[ ! -d "${DETECTED_HOMEDIR}/.tmux" ]]; then
-        git clone https://github.com/gpakosz/.tmux.git "${DETECTED_HOMEDIR}/.tmux"
+        $(which git) clone https://github.com/gpakosz/.tmux.git "${DETECTED_HOMEDIR}/.tmux"
     else
-        git -C "${DETECTED_HOMEDIR}/.tmux" pull
-        git -C "${DETECTED_HOMEDIR}/.tmux" fetch --all --prune
-        git -C "${DETECTED_HOMEDIR}/.tmux" reset --hard origin/master
-        git -C "${DETECTED_HOMEDIR}/.tmux" pull
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" pull
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" fetch --all --prune
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" reset --hard origin/master
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" pull
     fi
 
-    ln -s -f "${DETECTED_HOMEDIR}/.tmux/.tmux.conf" "${DETECTED_HOMEDIR}/.tmux.conf"
-    cp -n "${DETECTED_HOMEDIR}/.tmux/.tmux.conf.local" "${DETECTED_HOMEDIR}/.tmux.conf.local"
-    sudo sed -i -E 's/^#?set -g mouse on$/set -g mouse on/g' "${DETECTED_HOMEDIR}/.tmux.conf.local"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux.conf"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux.conf.local"
+    $(which ln) -s -f "${DETECTED_HOMEDIR}/.tmux/.tmux.conf" "${DETECTED_HOMEDIR}/.tmux.conf"
+    $(which cp) -n "${DETECTED_HOMEDIR}/.tmux/.tmux.conf.local" "${DETECTED_HOMEDIR}/.tmux.conf.local"
+    sudo $(which sed) -i -E 's/^#?set -g mouse on$/set -g mouse on/g' "${DETECTED_HOMEDIR}/.tmux.conf.local"
+    $(which chown) -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux"
+    $(which chown) -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux.conf"
+    $(which chown) -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.tmux.conf.local"
 
     # auto-tmux for SSH logins
     # https://github.com/spencertipping/bashrc-tmux
     if [[ ! -d "${DETECTED_HOMEDIR}/bashrc-tmux" ]]; then
-        git clone https://github.com/spencertipping/bashrc-tmux.git "${DETECTED_HOMEDIR}/bashrc-tmux"
+        $(which git) clone https://github.com/spencertipping/bashrc-tmux.git "${DETECTED_HOMEDIR}/bashrc-tmux"
     else
-        git -C "${DETECTED_HOMEDIR}/.tmux" pull
-        git -C "${DETECTED_HOMEDIR}/.tmux" fetch --all --prune
-        git -C "${DETECTED_HOMEDIR}/.tmux" reset --hard origin/master
-        git -C "${DETECTED_HOMEDIR}/.tmux" pull
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" pull
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" fetch --all --prune
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" reset --hard origin/master
+        $(which git) -C "${DETECTED_HOMEDIR}/.tmux" pull
     fi
-    if ! grep -q 'bashrc-tmux' "${DETECTED_HOMEDIR}/.bashrc"; then
+    if ! $(which grep) -q 'bashrc-tmux' "${DETECTED_HOMEDIR}/.bashrc"; then
         local BASHRC_TMP
         BASHRC_TMP=$(mktemp)
-        cat <<-'EOF' | sed -E 's/^ *//' | cat - "${DETECTED_HOMEDIR}/.bashrc" >"${BASHRC_TMP}"
+        cat <<-'EOF' | $(which sed) -E 's/^ *//' | cat - "${DETECTED_HOMEDIR}/.bashrc" >"${BASHRC_TMP}"
             [ -z "$PS1" ] && return                 # this still comes first
             source ~/bashrc-tmux/bashrc-tmux
 
             # rest of bashrc below...
 
 EOF
-        mv "${BASHRC_TMP}" "${DETECTED_HOMEDIR}/.bashrc"
-        rm -f "${BASHRC_TMP}"
+        $(which mv) "${BASHRC_TMP}" "${DETECTED_HOMEDIR}/.bashrc"
+        $(which rm) -f "${BASHRC_TMP}"
     fi
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/bashrc-tmux"
-    chown -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.bashrc"
+    $(which chown) -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/bashrc-tmux"
+    $(which chown) -R "${DETECTED_PUID}":"${DETECTED_PGID}" "${DETECTED_HOMEDIR}/.bashrc"
 
     # https://help.ubuntu.com/community/StricterDefaults#Shared_Memory
     #if ! grep -q '/run/shm' /etc/fstab; then
@@ -122,24 +111,24 @@ EOF
     #sudo mount -o remount /run/shm || true
 
     # https://help.ubuntu.com/community/StricterDefaults#SSH_Login_Grace_Time
-    sudo sed -i -E 's/^#?LoginGraceTime .*$/LoginGraceTime 20/g' /etc/ssh/sshd_config
+    sudo $(which sed) -i -E 's/^#?LoginGraceTime .*$/LoginGraceTime 20/g' /etc/ssh/sshd_config
 
     # https://help.ubuntu.com/community/StricterDefaults#Disable_Password_Authentication
     # only disable password authentication if an ssh key with an email address comment at the end is found in the authorized_keys file
     # be sure to setup your ssh key before running this script (and change the user comment at the end to your email address)
-    if grep -q -E '^ssh-rsa .* \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b$' "${DETECTED_HOMEDIR}/.ssh/authorized_keys"; then
-        sudo sed -i -E 's/^#?PasswordAuthentication .*$/PasswordAuthentication no/g' /etc/ssh/sshd_config
+    if $(which grep) -q -E '^ssh-rsa .* \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b$' "${DETECTED_HOMEDIR}/.ssh/authorized_keys"; then
+        sudo $(which sed) -i -E 's/^#?PasswordAuthentication .*$/PasswordAuthentication no/g' /etc/ssh/sshd_config
     fi
 
     # https://help.ubuntu.com/community/StricterDefaults#SSH_Root_Login
-    sudo sed -i -E 's/^#?PermitRootLogin .*$/PermitRootLogin no/g' /etc/ssh/sshd_config
+    sudo $(which sed) -i -E 's/^#?PermitRootLogin .*$/PermitRootLogin no/g' /etc/ssh/sshd_config
 
     # restart ssh after all the changes above
     sudo systemctl restart ssh
 
     # https://github.com/trapexit/mergerfs/releases
     #local AVAILABLE_MERGERFS
-    #AVAILABLE_MERGERFS=$(curl -fsL "https://api.github.com/repos/trapexit/mergerfs/releases/latest" | grep -Po '"tag_name": "[Vv]?\K.*?(?=")')
+    #AVAILABLE_MERGERFS=$(curl -fsL "https://api.github.com/repos/trapexit/mergerfs/releases/latest" | $(which grep) -Po '"tag_name": "[Vv]?\K.*?(?=")')
     #local MERGERFS_FILENAME="mergerfs_${AVAILABLE_MERGERFS}.${ID}-${VERSION_CODENAME}_${DPKG_ARCH}.deb"
     #curl -fsL "https://github.com/trapexit/mergerfs/releases/download/${AVAILABLE_MERGERFS}/${MERGERFS_FILENAME}" -o "${MERGERFS_FILENAME}"
     #sudo dpkg -i "${MERGERFS_FILENAME}"
